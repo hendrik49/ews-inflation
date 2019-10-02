@@ -54,127 +54,35 @@ function initLine(target) {
 				.attr('cy', (o) => (yScale(o.inf)))
 				.attr('r', 5);
 
-	        img = roam.append("a")
-			.attr("href", "dashboard-daya-beli.html")
-			.append("svg:image")
-			.attr('y', 500)
-			.attr('x', 370)
-			.attr('width', 200)
-			.attr('height', 100)
-			.attr("xlink:href", "public/panah.png");
-
 		detail	= roam.append('g')
 			.attr('id', 'detail-wrapper');
 
 		detail.append('text')
 			.attr('id', 'ceil')
 			.attr('font-size', ceil_size + 'px')
-			.attr('y', ceil_size+80)
+			.attr('y', ceil_size)
 			// .attr('alignment-baseline', 'hanging')
 			.text('0');
-		
+
 		detail.append('text')
 			.attr('id', 'floor')
 			.attr('font-size', floor_size + 'px')
+			// .attr('alignment-baseline', 'hanging')
 			.attr('text-anchor', 'end')
-			.attr('y', ceil_size + floor_size + 90)
-			.attr('x', ceil_size + 50)
+			.attr('y', ceil_size + floor_size + 10)
 			.text(moment().format('MMMM YYYY'));
 
-		detail.append('text')
-			.attr('id', 'floor2')
-			.attr('font-size', floor_size + 'px')
-			.attr('text-anchor', 'end')
-			.attr('y', ceil_size + floor_size + 120)
-			.attr('x', ceil_size + 50)
-			.text(moment().format('MMMM YYYY'));
-		
-		detail.append('text')
-			.attr('id', 'floor3')
-			.attr('font-size', floor_size + 'px')
-			.attr('text-anchor', 'end')
-			.attr('y', ceil_size + floor_size + 230)
-			.attr('x', ceil_size + floor_size)
-			.text(moment().format('MMMM YYYY'));
-		
-		detail.
-			append("rect")  
-			.attr('y', ceil_size + floor_size + 250)
-			.attr('x', ceil_size-190)
-			.attr("height", 50)
-			.attr("width", 75)
-			.style("fill", "darkslategrey");
-
-		detail.append('text')
-			.attr('id', 'floor3')
-			.attr('font-size', 2*floor_size + 'px')
-			.attr('y', ceil_size + floor_size + 280)
-			.attr('x', ceil_size-185)
-			.text(3.12).append('tspan')
-			.text('(2016)')
-			.style('font-size', floor_size-3 + 'px')
-			.attr('dx', '.1em')
-			.attr('dy', '.9em');
-
-		detail.append("rect")  
-			.attr('y', ceil_size + floor_size + 250)
-			.attr('x', ceil_size-105)
-			.attr("height", 50)
-			.attr("width", 80)
-			.style("fill", "darkslategrey");
-
-		detail.append('text')
-			.attr('id', 'floor4')
-			.attr('font-size', 2*floor_size + 'px')
-			.attr('text-anchor', 'end')
-			.attr('y', ceil_size + floor_size + 280)
-			.attr('x', ceil_size-30)
-			.text(3.75).append('tspan')
-			.text('(2017)')
-			.style('font-size', floor_size-3 + 'px')
-			.attr('dx', '.1em')
-			.attr('dy', '.9em');
-
-		detail.
-			append("rect")  
-			.attr('y', ceil_size + floor_size + 250)
-			.attr('x', ceil_size-15)
-			.attr("height", 50)
-			.attr("width", 80)
-			.style("fill", "darkslategrey");
-
-		detail.append('text')
-			.attr('id', 'floor5')
-			.attr('font-size', 2*floor_size + 'px')
-			.attr('text-anchor', 'end')
-			.attr('y', ceil_size + floor_size + 280)
-			.attr('x', ceil_size + floor_size + 50)
-			.text(3.49)
-			.append('tspan')
-			.text('(2018)')
-			.style('font-size', floor_size-3 + 'px')
-			.attr('dx', '.1em')
-			.attr('dy', '.9em');
-
-		detail.append('text')
-			.attr('id', 'ceilb')		
-			.attr('font-size', ceil_size + 'px')
-			.attr('y', 280)
-			.text('0');	
-
-		detail.attr('transform', 'translate(' + (canvasWidth * (pathWidth)) + ',' + (yScale(_.chain(mock).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')');
+		detail.attr('transform', 'translate(' + (canvasWidth * (pathWidth)) + ',' + (yScale(_.chain(mock).maxBy('month').get('inf').value()) - detail.node().getBBox().height / 2) + ')')
+		detail.select('text#floor').attr('x', detail.node().getBBox().width);
 
 		resolve();
 	});
 }
 
-formatPower = function(d) { 
-	return (d + "").split("").map(function(c) { return superscript[c]; }).join(""); };
-
 function updateLine(result) {
-
 	let data 	= _.chain(result).map((value, key) => ({ month: moment(parseInt(key)).startOf('month').toDate(), inf: value })).orderBy('month', 'desc').value();
 	let last	= d3.max(data, (o) => (o.month));
+	console.log(moment(last).format('MMMM YYYY'));
 
 	xScale.domain([d3.min(data, (o) => (o.month)), last]);
 	yScale.domain([_.floor(d3.min(data, (o) => (o.inf))), _.ceil(d3.max(data, (o) => (o.inf)))]);
@@ -200,14 +108,10 @@ function updateLine(result) {
 		.on('mouseout', onMouseOut);
 
 	let inf_value	= _.chain(data).maxBy('month').get('inf').round(2).value().toFixed(2);
-	var format = d3.format(".2f");
-        last =  moment().subtract(1, 'months').format('MMMM YYYY');
-
 	detail.select('text#ceil').text(inf_value);
-	detail.select('text#ceilb').text(format(3.36));
-	detail.select('text#floor').text('').text('Prediksi untuk ' +last);
-	detail.select('text#floor2').text('').text('Prediksi untuk ' + moment('12-01-2019').format('MMMM YYYY'));
-	detail.select('text#floor3').text('Realisasi (%YoY)');
+	//detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for ' + moment(last).format('MMMM YYYY'));
+	detail.select('text#floor').text('').attr('x', detail.node().getBBox().width).text('Prediction for Agustus 2019');
+
 
 	if (year.classed('selected')) {
 		detail.classed('warning', inf_value > limit_warn && inf_value < limit_top);
@@ -242,4 +146,3 @@ function onMouseOver(o) {
 function onMouseOut() {
 	tooltip.classed('hidden', true);
 }
-

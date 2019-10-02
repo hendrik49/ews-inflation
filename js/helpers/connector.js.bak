@@ -1,0 +1,68 @@
+async function refreshValues(id) {
+	fetching = true;
+	juli = {
+		11:2.96,
+		12:3.81,
+		13:2.76,
+		14:2.86,
+		21:3.63,
+		15:2.75,
+		17:2.62,
+		16:2.12,
+		19:4.38,
+		18:3.11,
+		31:3.38,
+		36:3.41,
+		32:3.26,
+		33:2.41,
+		34:3.15,
+		35:2.61,
+		61:3.65,
+		62:3.61,
+		63:4.34,
+		64:3.17,
+		65:5.03,
+		71:0.39,
+		72:5.98,
+		73:3.57,
+		74:3.26,
+		75:2.82,
+		81:4.30,
+		82:2.83,
+		94:3.84,
+		91:3.25,
+		76:1.12,
+		51:2.24,
+		52:3.42,
+		53:2.16
+	}
+	if (year.classed('selected')) {
+		d3.select('g#legend').classed('hidden', false);
+
+		await d3.json(baseURL + 'inflation' + (id ? '/' + id : '')).then((result) => {
+			
+			if(id==undefined){
+				result[1561961474000] = 3.12;
+			}else{
+				result[1561961474000] = juli[id];
+			}
+			
+			updateLine(result); 
+		});
+		await d3.json(baseURL + 'wordcloud' + (id ? '/' + id : '')).then((result) => { 
+			updateWordcloud(result); 
+		});
+	} else {
+		d3.select('g#legend').classed('hidden', true);
+
+		await d3.json(baseURL + 'monthly' + (id ? '/' + id : '')).then((result) => { 
+			updateLine(result); 
+		});
+		await d3.json(baseURL + 'wordcloud' + (id ? '/' + id : '')).then((result) => { 
+			updateWordcloud(result); 
+		});
+	}
+
+	setTimeout(() => { fetching = false; }, def_duration + 50);
+}
+

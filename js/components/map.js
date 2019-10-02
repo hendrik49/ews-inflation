@@ -43,7 +43,7 @@ function initMap() {
 			.attr('y', canvasHeight * .2 + 20)
 			.attr('alignment-baseline', 'hanging')
 			.attr('text-anchor', 'end')
-			.text('Back to National')
+			.text('')
 			.on('click', () => { if (centered) { zoom(null) }});
 
 		await drawGeoJson('indonesia');
