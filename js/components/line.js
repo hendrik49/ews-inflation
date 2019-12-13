@@ -61,7 +61,7 @@ function initLine(target) {
 			.attr('x', 370)
 			.attr('width', 200)
 			.attr('height', 100)
-			.attr("xlink:href", "public/panah.png");
+			.attr("xlink:href", "");
 
 		detail	= roam.append('g')
 			.attr('id', 'detail-wrapper');
@@ -206,7 +206,7 @@ function updateLine(result) {
 	detail.select('text#ceil').text(inf_value);
 	detail.select('text#ceilb').text(format(3.36));
 	detail.select('text#floor').text('').text('Prediksi untuk ' +last);
-	detail.select('text#floor2').text('').text('Prediksi untuk ' + moment('12-01-2019').format('MMMM YYYY'));
+	detail.select('text#floor2').text('').text('Prediksi untuk ' + new moment().month(11).format('MMMM YYYY'));
 	detail.select('text#floor3').text('Realisasi (%YoY)');
 
 	if (year.classed('selected')) {
