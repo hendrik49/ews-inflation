@@ -1,7 +1,7 @@
 # ews-inflation
 EWS Inflation
 
-How to deploy The Early Warning System Inlfation
+How to deploy The Early Warning System Inflation
 
 1. Installing NodeJS 
    https://nodejs.org/en/download/
