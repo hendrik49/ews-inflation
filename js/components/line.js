@@ -69,7 +69,7 @@ function initLine(target) {
 		detail.append('text')
 			.attr('id', 'ceil')
 			.attr('font-size', ceil_size + 'px')
-			.attr('y', ceil_size+80)
+			.attr('y', ceil_size+100)
 			// .attr('alignment-baseline', 'hanging')
 			.text('0');
 		
@@ -77,8 +77,8 @@ function initLine(target) {
 			.attr('id', 'floor')
 			.attr('font-size', floor_size + 'px')
 			.attr('text-anchor', 'end')
-			.attr('y', ceil_size + floor_size + 90)
-			.attr('x', ceil_size + 50)
+			.attr('y', ceil_size + floor_size + 20)
+			.attr('x', ceil_size + 70)
 			.text(moment().format('MMMM YYYY'));
 
 		detail.append('text')
@@ -86,7 +86,7 @@ function initLine(target) {
 			.attr('font-size', floor_size + 'px')
 			.attr('text-anchor', 'end')
 			.attr('y', ceil_size + floor_size + 120)
-			.attr('x', ceil_size + 50)
+			.attr('x', ceil_size + 70)
 			.text(moment().format('MMMM YYYY'));
 		
 		detail.append('text')
