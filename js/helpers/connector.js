@@ -56,9 +56,9 @@ async function refreshValues(id) {
 1577836800000:2.94
 			}
 			if(id==undefined){
-				result[1561961474000] = 2.94;
+				result[1577836800000] = 2.94;
 			}else{
-				result[1561961474000] = agustus[id];
+				result[1577836800000] = agustus[id];
 			}
 			
 			updateLine(result); 
