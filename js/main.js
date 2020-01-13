@@ -10,44 +10,43 @@ $( document ).ready(async function() {
 	$(' #wordcloud-content ').html(types.map(o => ('<div id="' + _.kebabCase(o) + '" class="horseman"><div class="horseman-title">' + o + '</div><div class="horseman-content"></div></div>')).join(''))
 	await initMap();
 	await initWordcloud();
-
-	d3.json(baseURL + 'colors').then((result) => { 
-		result = {
-                11:3.10,
-                12:5.10,
-                13:3.41,
-                14:3.70,
-                21:3.50,
-                15:3.37,
-                17:2.60,
-                16:3.00,
-                19:3.40,
-                18:3.20,
-                31:3.60,
-                36:3.50,
-                32:3.89,
-                33:3.35,
-                34:3.35,
-                35:2.90,
-                61:2.60,
-                62:2.90,
-                63:4.10,
-                64:2.50,
-                65:3.82,
-                71:1.65,
-                72:4.20,
-                73:2.50,
-                74:2.90,
-                75:3.10,
-                81:5.67,
-                82:3.12,
-                94:3.40,
-                91:2.50,
-                76:1.67,
-                51:3.60,
-                52:2.90,
-                53:2.20		
-            }
+        d3.json(baseURL + 'colors').then((result) => { 
+                result = {
+                    11:2.37,
+                    12:0.73,
+                    13:2.30,
+                    14:1.81,
+                    21:2.71,
+                    15:1.67,
+                    17:2.24,
+                    16:2.25,
+                    19:3.25,
+                    18:1.66,
+                    31:3.13,
+                    36:3.55,
+                    32:3.22,
+                    33:2.89,
+                    34:3.01,
+                    35:3.29,
+                    61:4.05,
+                    62:4.48,
+                    63:3.16,
+                    64:3.48,
+                    65:5.49,
+                    71:4.45,
+                    72:5.96,
+                    73:3.39,
+                    74:2.68,
+                    75:2.86,
+                    81:3.11,
+                    82:4.23,
+                    94:7.20,
+                    91:5.19,
+                    76:1.24,
+                    51:3.24,
+                    52:3.20,
+                    53:2.34            
+                    }
 		_.chain(result).map((val, id) => ({ id, color: states[_.chain(limits).filter(o => (o <= val)).size().value()] })).groupBy('color').mapValues(o => _.map(o, 'id')).forEach((val, key) => { d3.selectAll(val.map(o => ('#prov-' + o)).join(', ')).classed(key, true) }).value() 
 	});
 	refreshValues();

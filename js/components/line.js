@@ -110,8 +110,8 @@ function initLine(target) {
 			.attr('font-size', 2*floor_size + 'px')
 			.attr('y', ceil_size + floor_size + 280)
 			.attr('x', ceil_size-185)
-			.text(3.12).append('tspan')
-			.text('(2016)')
+			.text(3.61).append('tspan')
+			.text('(2017)')
 			.style('font-size', floor_size-3 + 'px')
 			.attr('dx', '.1em')
 			.attr('dy', '.9em');
@@ -129,8 +129,8 @@ function initLine(target) {
 			.attr('text-anchor', 'end')
 			.attr('y', ceil_size + floor_size + 280)
 			.attr('x', ceil_size-30)
-			.text(3.75).append('tspan')
-			.text('(2017)')
+			.text(3.13).append('tspan')
+			.text('(2018)')
 			.style('font-size', floor_size-3 + 'px')
 			.attr('dx', '.1em')
 			.attr('dy', '.9em');
@@ -149,9 +149,9 @@ function initLine(target) {
 			.attr('text-anchor', 'end')
 			.attr('y', ceil_size + floor_size + 280)
 			.attr('x', ceil_size + floor_size + 50)
-			.text(3.49)
+			.text(2.72)
 			.append('tspan')
-			.text('(2018)')
+			.text('(2019)')
 			.style('font-size', floor_size-3 + 'px')
 			.attr('dx', '.1em')
 			.attr('dy', '.9em');
@@ -201,10 +201,10 @@ function updateLine(result) {
 
 	let inf_value	= _.chain(data).maxBy('month').get('inf').round(2).value().toFixed(2);
 	var format = d3.format(".2f");
-        last =  moment().subtract(1, 'months').format('MMMM YYYY');
+        last =  moment().subtract(0, 'months').format('MMMM YYYY');
 
 	detail.select('text#ceil').text(inf_value);
-	detail.select('text#ceilb').text(format(3.36));
+	detail.select('text#ceilb').text(format(3.10));
 	detail.select('text#floor').text('').text('Prediksi untuk ' +last);
 	detail.select('text#floor2').text('').text('Prediksi untuk ' + new moment().month(11).format('MMMM YYYY'));
 	detail.select('text#floor3').text('Realisasi (%YoY)');
